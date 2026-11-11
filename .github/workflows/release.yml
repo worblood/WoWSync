@@ -56,7 +56,7 @@ jobs:
       - name: Package GUI
         working-directory: cmd/wowsync-gui
         run: |
-          fyne package -os ${{ matrix.target }} --release --app-version "$VERSION"
+          fyne package -os ${{ matrix.target }} --release --app-version "$VERSION" --app-build "$GITHUB_RUN_NUMBER"
           ls -la
 
       - name: Build CLI

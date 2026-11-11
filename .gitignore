@@ -21,3 +21,4 @@ desktop.ini
 
 # Go
 coverage.out
+cmd/wowsync-gui/WoWSync.*
