@@ -1,0 +1,23 @@
+# Build output
+/dist/
+/bin/
+*.exe
+*.app/
+fyne-cross/
+cmd/wowsync-gui/WoWSync
+cmd/wowsync-gui/wowsync-gui
+
+# Local config must never be committed (lives in the user's config dir anyway)
+config.json
+state.json
+
+# OS / editor junk
+.DS_Store
+Thumbs.db
+desktop.ini
+.idea/
+.vscode/
+*.swp
+
+# Go
+coverage.out
