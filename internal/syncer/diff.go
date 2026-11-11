@@ -60,7 +60,7 @@ func (d Diff) Summary() string {
 	}
 	s := fmt.Sprintf("%d added, %d modified, %d removed", d.Count(wow.Added), d.Count(wow.Modified), d.Count(wow.Removed))
 	if n := d.CVarCount(); n > 0 {
-		s += fmt.Sprintf(", %d CVar(s) in Config.wtf", n)
+		s += fmt.Sprintf(", %d Config.wtf setting(s)", n)
 	}
 	return s
 }
