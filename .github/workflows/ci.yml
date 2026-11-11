@@ -1,0 +1,48 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  core:
+    # Sync logic and CLI are pure Go: test them on every OS without cgo.
+    name: Test core (${{ matrix.os }})
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    env:
+      CGO_ENABLED: "0"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+      - name: Vet
+        run: go vet ./internal/wow/... ./internal/store/... ./internal/config/... ./internal/syncer/... ./internal/cli/... ./cmd/wowsync/...
+      - name: Test
+        run: go test ./internal/wow/... ./internal/store/... ./internal/config/... ./internal/syncer/... ./internal/cli/...
+      - name: Build CLI
+        run: go build ./cmd/wowsync
+
+  gui:
+    name: Build GUI (Linux, compile check)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+      - name: Install GL/X11/Wayland headers
+        run: sudo apt-get update && sudo apt-get install -y libgl1-mesa-dev xorg-dev libwayland-dev libxkbcommon-dev
+      - name: Vet everything
+        run: go vet ./...
+      - name: Build GUI
+        run: go build ./cmd/wowsync-gui
