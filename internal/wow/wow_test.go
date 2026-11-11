@@ -98,9 +98,9 @@ func TestClassifyAndRules(t *testing.T) {
 		"WTF/Account/ACC/Realm/Char/chat-cache.txt":             "chat",
 		"WTF/Account/ACC/config-cache.wtf":                      "gamesettings",
 		"WTF/Account/ACC/Realm/Char/layout-local.txt":           "gamesettings",
-		"WTF/Config.wtf":                                        "config",
-		"WTF/Account/ACC/Realm/Char/something.txt":              "other",
-		"Fonts/x.ttf":                                           "",
+		"WTF/Config.wtf": "config",
+		"WTF/Account/ACC/Realm/Char/something.txt": "other",
+		"Fonts/x.ttf": "",
 	}
 	for rel, want := range cases {
 		if got := Classify(rel); got != want {
