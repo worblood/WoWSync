@@ -4,8 +4,10 @@ Desktop app (Windows + macOS) that keeps World of Warcraft settings, SavedVariab
 and AddOns in sync between several computers.
 
 Snapshots are stored in a **shared folder** – typically a NAS share
-(`\\NAS\wow` on Windows, `/Volumes/wow` on macOS). Nothing is stored in this
-GitHub repository except the source code.
+(`\\NAS\games\WoWSync` on Windows, `/Volumes/games/WoWSync` on macOS). Nothing is
+stored in this GitHub repository except the source code.
+
+![WoWSync main window](docs/images/main.png)
 
 ## Features
 
@@ -32,6 +34,9 @@ GitHub repository except the source code.
   and never modified, so a NAS or cloud folder never sees write conflicts.
 
 ## Command line
+
+The CLI is a separate download (`wowsync-cli-…`), and the GUI binary accepts the same
+commands, e.g. `/Applications/WoWSync.app/Contents/MacOS/wowsync-gui status`.
 
 ```
 wowsync status                 show local vs. store
@@ -63,7 +68,8 @@ The configuration lives in the user's config folder and is never committed:
 ## Download / build
 
 Releases are built by GitHub Actions for Windows (x64), macOS Apple Silicon and
-macOS Intel when a tag `v*` is pushed. See *Releases*.
+macOS Intel when a tag `v*` is pushed (`git tag v0.1.0 && git push origin v0.1.0`).
+Each platform gets `WoWSync-<platform>.zip` (the app) and `wowsync-cli-<platform>` (the CLI).
 
 Build locally (GUI needs cgo and a C compiler):
 
@@ -72,6 +78,10 @@ go test ./...
 go build ./cmd/wowsync          # CLI, pure Go
 go build ./cmd/wowsync-gui      # GUI (Fyne)
 ```
+
+On Linux the GUI needs `libgl1-mesa-dev xorg-dev libwayland-dev libxkbcommon-dev`.
+Package like the release workflow with `go install fyne.io/tools/cmd/fyne@v1.7.4` and
+`fyne package -os darwin|windows` inside `cmd/wowsync-gui`.
 
 ### Unsigned builds
 
