@@ -81,6 +81,7 @@ var DefaultExcludes = []string{
 	".DS_Store", "Thumbs.db", "desktop.ini",
 	".git/", ".svn/", ".hg/",
 	"cache.md5",
+	".wowsync-*", ".tmp-*", // WoWSync's own temp files
 }
 
 // Classify returns the category of a path relative to a flavor folder, or
